@@ -16,6 +16,7 @@ namespace TabuleiroN
         public Cor Cor { get; protected set; }
         public int QtdMovimentos { get; protected set; }
 
+        public void DecrMovimentos() => QtdMovimentos--;
         public void IncrMovimetos() => QtdMovimentos++;
 
         public bool PodeMoverPara(Posicao pos)
