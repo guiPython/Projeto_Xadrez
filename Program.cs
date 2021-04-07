@@ -17,12 +17,9 @@ namespace Projeto_Xadrez
                     try
                     {
                         Console.Clear();
-                        Tela.PrintTabuleiro(partida.t);
-                        Console.WriteLine($"\nTurno: {partida.turno}");
-                        Console.WriteLine($"Aguardando a jogada: {partida.JogadorAtual}");
+                        Tela.PrintPartida(partida);
 
-                        Console.WriteLine();
-                        Console.Write("Origem: ");
+                        Console.Write("\nOrigem: ");
                         Posicao origem = Tela.ReadPosXadrez().toPosicao();
                         partida.ValidarPosOrigem(origem);
                         bool[,] posicoesPossiveis = partida.t.Peca(origem).MovimentosPossiveis();
