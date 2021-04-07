@@ -39,7 +39,7 @@ namespace Projeto_Xadrez
                         Console.ReadLine();
                     }
                 }
-                Tela.PrintTabuleiro(partida.t);
+                Tela.PrintPartida(partida);
             }
             catch (TabuleiroException e)
             {

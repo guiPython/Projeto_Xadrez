@@ -13,15 +13,24 @@ namespace Projeto_Xadrez
             Console.WriteLine();
             PrintPecasCapturadas(partida);
             Console.WriteLine($"\n\nTurno: {partida.turno}");
-            Console.WriteLine($"Aguardando a jogada: {partida.JogadorAtual}");
-            if (partida.Xeque) Console.WriteLine("XEQUE");
+            if (!partida.Terminada)
+            {
+                Console.WriteLine($"Aguardando a jogada: {partida.JogadorAtual}");
+                if (partida.Xeque) Console.WriteLine("XEQUE");
+            }
+            else
+            {
+                Console.WriteLine("Patida Terminada! XequeMate!");
+                Console.WriteLine($"Vencedor: {partida.JogadorAtual}");
+            }
+
         }
         public static void PrintTabuleiro(Tabuleiro t)
         {
-            for( int i = 0; i < t.Linhas; i++)
+            for (int i = 0; i < t.Linhas; i++)
             {
-                Console.Write($"{8-i} ");
-                for( int j = 0; j < t.Colunas; j++)
+                Console.Write($"{8 - i} ");
+                for (int j = 0; j < t.Colunas; j++)
                 {
                     PrintPeca(t.Peca(i, j));
                 }
