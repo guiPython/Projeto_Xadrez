@@ -17,7 +17,9 @@ namespace TabuleiroN
 
         public Peca Peca(int lin, int col) => Pecas[lin, col];
 
-        public Peca Peca(Posicao pos) => Pecas[pos.Linha, pos.Coluna];
+        public Peca Peca(Posicao pos) {
+           return Pecas[pos.Linha, pos.Coluna];
+        }
 
         public bool ExistePeca(Posicao pos)
         {
@@ -43,7 +45,7 @@ namespace TabuleiroN
 
         public bool PosicaoValida(Posicao pos)
         {
-            if (pos.Linha < 0 || pos.Linha > Linhas || pos.Coluna < 0 || pos.Coluna > Colunas) return false;
+            if (pos.Linha < 0 || pos.Linha >= Linhas || pos.Coluna < 0 || pos.Coluna >= Colunas) return false;
             return true;
         }
 
