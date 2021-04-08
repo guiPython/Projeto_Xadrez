@@ -172,6 +172,22 @@ namespace Xadrez
         {
             Peca pCapturada = ExecutaMovimeto(origem, destino);
 
+            Peca p = t.Peca(destino);
+
+            // #Jogada Especial Promoção
+
+            if( p is Peao)
+            {
+                if((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7))
+                {
+                    p = t.RemovePeca(destino);
+                    Pecas.Remove(p);
+                    Peca rainha = new Rainha(t, p.Cor);
+                    t.AddPeca(rainha,destino);
+                    Pecas.Add(rainha);
+                }
+            }
+
             if (EstaEmCheque(JogadorAtual))
             {
                 DesfazerMovimento(origem, destino, pCapturada);
@@ -190,8 +206,6 @@ namespace Xadrez
                 turno++;
                 MudaJogador();
             }
-
-            Peca p = t.Peca(destino);
 
             // #Jogada Especial En Passant
 
