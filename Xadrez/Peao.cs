@@ -4,7 +4,11 @@ namespace Xadrez
 {
     class Peao : Peca
     {
-        public Peao(Tabuleiro t, Cor cor) : base(t, cor) { }
+        private PartidaDeXadrez Partida;
+        public Peao(Tabuleiro t, Cor cor, PartidaDeXadrez partida) : base(t, cor)
+        {
+            Partida = partida;
+        }
 
         public override string ToString() => "P";
 
@@ -48,6 +52,21 @@ namespace Xadrez
                 {
                     mat[pos.Linha, pos.Coluna] = true;
                 }
+
+                // #Jogada Especial En Passant
+                if (Posicao.Linha == 3)
+                {
+                    Posicao esq = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    if (Tab.PosicaoValida(esq) && ExisteInimigo(esq) && Tab.Peca(esq) == Partida.VulneravelEnPassant)
+                    {
+                        mat[esq.Linha-1, esq.Coluna] = true;
+                    }
+                    Posicao dir = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    if (Tab.PosicaoValida(dir) && ExisteInimigo(dir) && Tab.Peca(dir) == Partida.VulneravelEnPassant)
+                    {
+                        mat[dir.Linha-1, dir.Coluna] = true;
+                    }
+                }
             }
 
             else
@@ -58,7 +77,7 @@ namespace Xadrez
                     mat[pos.Linha, pos.Coluna] = true;
                 }
                 pos.definirValores(Posicao.Linha + 2, Posicao.Coluna);
-                Posicao p2 = new Posicao(Posicao.Linha - 1, Posicao.Coluna);
+                Posicao p2 = new Posicao(Posicao.Linha + 1, Posicao.Coluna);
                 if (Tab.PosicaoValida(p2) && Livre(p2) && Tab.PosicaoValida(pos) && Livre(pos) && QtdMovimentos == 0)
                 {
                     mat[pos.Linha, pos.Coluna] = true;
@@ -72,6 +91,20 @@ namespace Xadrez
                 if (Tab.PosicaoValida(pos) && ExisteInimigo(pos))
                 {
                     mat[pos.Linha, pos.Coluna] = true;
+                }
+                // #Jogada Especial En Passant
+                if (Posicao.Linha == 4)
+                {
+                    Posicao esq = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    if (Tab.PosicaoValida(esq) && ExisteInimigo(esq) && Tab.Peca(esq) == Partida.VulneravelEnPassant)
+                    {
+                        mat[esq.Linha+1, esq.Coluna] = true;
+                    }
+                    Posicao dir = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    if (Tab.PosicaoValida(dir) && ExisteInimigo(dir) && Tab.Peca(dir) == Partida.VulneravelEnPassant)
+                    {
+                        mat[dir.Linha+1, dir.Coluna] = true;
+                    }
                 }
             }
             return mat;
